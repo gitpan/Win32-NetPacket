@@ -1,0 +1,49 @@
+Win32/NetPacket version 0.01
+============================
+
+The module Win32::NetPacket provides an Object-Oriented interface
+to the Packet Driver API (packet.dll). packet.dll is a part of
+WinPcap: the Free Packet Capture Architecture for Windows.
+
+packet.dll offers a set of low level functions to sniff the
+network traffic, send packets to the network, obtain the list
+of the available network adapters, retrieve various information
+about an adapter, ...etc
+
+WinPCap is a software developed by the Politecnico di Torino.
+
+PREREQUISITES
+
+In order to use Win32::NetPacket in your Perls scripts, it is
+necessary to install WinPcap on your machine.
+Download WinPcap 3.0 :
+
+  http://winpcap.polito.it/install/default.htm
+
+file: auto-installer (driver +DLLs), and run the executable.
+
+For the compilation, download the Developer's pack
+(file: wpdpack_3_0.zip) and unzip it in a directory.
+
+INSTALLATION
+
+Edit the Makefile.PL and set $WPCAP to the path of the WPcap
+library.
+
+To install the module type the following:
+
+   perl Makefile.PL
+   nmake
+   nmake test
+   nmake install
+
+DEPENDENCIES
+
+This module requires these other modules: Exporter and DynaLoader
+
+COPYRIGHT AND LICENCE
+
+Copyright (c) 2003 J-L Morel. All rights reserved.
+
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
