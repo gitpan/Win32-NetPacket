@@ -1,6 +1,7 @@
 Changes
 Makefile.PL
 MANIFEST
+typemap
 NetPacket.pm
 NetPacket.xs
 README

@@ -4,3 +4,7 @@ Revision history for Perl extension Win32::NetPacket.
 	- original version; created by h2xs 1.21 with options
 		-A Win32::NetPacket
 
+0.02  16/06/2003
+  - arrrgh..! I forgot the typemap file in the distro. Fixed.
+    Thanks to crazyinsomniac, the brave CPAN-tester.
+		

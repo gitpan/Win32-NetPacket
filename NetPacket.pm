@@ -2,7 +2,7 @@ package Win32::NetPacket;
 #
 # Copyright (c) 2003 Jean-Louis Morel <jl_morel@bribes.org>
 #
-# Version 0.01 (08/04/2003)
+# Version 0.02 (15/06/2003)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
@@ -22,7 +22,7 @@ require DynaLoader;
 # use AutoLoader;
 
 our @ISA = qw(Exporter DynaLoader);
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $DEBUG = 0;
 our $AUTOLOAD;
 
