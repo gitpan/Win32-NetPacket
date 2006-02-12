@@ -4,10 +4,9 @@
 #
 
 use strict;
-use ExtUtils::testlib;
-use Test;
+use Test::More;
 
-BEGIN { plan tests => 14 }
+plan tests => 14;
 
 use Win32::NetPacket;
 
@@ -64,12 +63,12 @@ ok(Win32::NetPacket::_PacketSetBpf($adapt, $filter));
 
 # close packet ----- 11 - 12
 Win32::NetPacket::_PacketFreePacket($packet);
-ok($packet, 0);
+ok($packet == 0);
 Win32::NetPacket::_PacketFreePacket($packet);
 ok(1); # no crash ...
 
 # close adapter ----- 13 - 14
 Win32::NetPacket::_PacketCloseAdapter($adapt);
-ok($adapt, 0);
+ok($adapt == 0);
 Win32::NetPacket::_PacketCloseAdapter($adapt);
 ok(1); # no crash ...

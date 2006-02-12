@@ -5,7 +5,7 @@
 
 #include "ppport.h"
 
-#include "packet32.h"
+#include <packet32.h>
 #include "Ntddndis.h"
 #include "const-c.inc"
 
@@ -41,15 +41,22 @@ _PacketGetAdapterNames(AdapterName)
 void
 _PacketGetNetInfo(AdapterName)
     char * AdapterName
-  PPCODE:
-    ULONG netp;
-    ULONG maskp;
-    if ( PacketGetNetInfo(AdapterName, &netp, &maskp)  )  {
-      ST(0) = sv_2mortal(newSVuv(netp));
-      ST(1) = sv_2mortal(newSVuv(maskp));
-      XSRETURN(2);
+  CODE:
+    ULONG NEntries = 1;
+    npf_if_addr *buffer = (npf_if_addr*) safemalloc(sizeof(npf_if_addr));
+    if ( PacketGetNetInfoEx(AdapterName, buffer, &NEntries)  )  {
+      struct sockaddr_in *t_addr;
+      if(buffer->IPAddress.ss_family == AF_INET) {
+        t_addr = (struct sockaddr_in *) &(buffer->IPAddress);
+        ST(0) = sv_2mortal(newSVuv(t_addr->sin_addr.S_un.S_addr));
+        t_addr = (struct sockaddr_in *) &(buffer->SubnetMask);
+        ST(1) = sv_2mortal(newSVuv(t_addr->sin_addr.S_un.S_addr));
+        XSRETURN(2);
+      }
     }
     XSRETURN_EMPTY;
+  CLEANUP:
+    Safefree(buffer);
 
 #**********************************************************
 # LPADAPTER PacketOpenAdapter(LPTSTR AdapterName)
@@ -283,6 +290,20 @@ _PacketSetMinToCopy(adapter, nbytes)
     RETVAL = PacketSetMinToCopy(adapter, nbytes);
   OUTPUT:
     RETVAL
+    
+#**********************************************************
+# Win32::Event GetReadEvent(LPADAPTER AdapterObject)
+#
+#----------------------------------------------------------
+
+void
+_GetReadEvent(adapter)
+    LPADAPTER adapter;
+  CODE:
+    unsigned int h = (unsigned int) PacketGetReadEvent(adapter); 
+    ST(0) = sv_newmortal();
+	  sv_setref_iv(ST(0), "Win32::Event", h);
+    XSRETURN(1);
 
 #**********************************************************
 # BOOLEAN PacketSendPacket(LPADAPTER AdapterObject, LPPACKET pPacket, BOOLEAN Sync)
@@ -352,4 +373,4 @@ GetVersion()
   OUTPUT:
     RETVAL
 
-#**********************************************************   
+#**********************************************************

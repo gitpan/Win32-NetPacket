@@ -4,10 +4,9 @@
 #
 
 use strict;
-use ExtUtils::testlib;
-use Test;
+use Test::More;
 
-BEGIN { plan tests => 16 }
+plan tests => 16;
 
 use Win32::NetPacket qw/ :oid :ndis GetAdapterNames GetNetInfo /;
 
@@ -122,4 +121,4 @@ ok($nic->SetBpf(@filter));
 # GetInfo ----- 16
 
 my @info = $nic->GetInfo();
-ok(@info == 6);
+ok(@info == 7);

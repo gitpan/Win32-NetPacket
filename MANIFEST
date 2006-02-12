@@ -2,12 +2,13 @@ Changes
 Makefile.PL
 MANIFEST
 typemap
-NetPacket.pm
+lib/Win32/NetPacket.pm
 NetPacket.xs
 README
 ppport.h
-const-c.inc
-const-xs.inc
+t/00_pod.t
 t/01_load.t
 t/02_func.t
 t/03_oo.t
+t/04_cst.t
+META.yml                                 Module meta-data (added by MakeMaker)

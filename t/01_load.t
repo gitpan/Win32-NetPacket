@@ -4,9 +4,9 @@
 #
 
 use strict;
-use Test;
+use Test::More;
 
-BEGIN { plan tests => 1 }
+plan tests => 1;
 
 use Win32::NetPacket;
 
